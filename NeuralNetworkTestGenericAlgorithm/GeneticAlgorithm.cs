@@ -160,7 +160,7 @@ namespace NeuralNetworkTestGenericAlgorithm
             return modifiedWeightsList;
         }
 
-        public void PerformAutoBreed(int iterations, List<double[]> dataSets)
+        public void PerformAutoBreed(int iterations, List<double[]> dataSets, List<double[]> expectedResults)
         {
             for (int i = 0; i < iterations; ++i)
             {
@@ -170,11 +170,14 @@ namespace NeuralNetworkTestGenericAlgorithm
                     RebreedTopNetworks();
                 }
 
-                double[] currentDataSet = dataSets[rand.Next(0, dataSets.Count)];
+                int currentDataSetIndex = rand.Next(0, dataSets.Count);
+                double[] currentDataSet = dataSets[currentDataSetIndex];
+                double[] currentExpectedResults = expectedResults[currentDataSetIndex];
                 SetNetworkInputValues(currentDataSet);
                 PropagateAllNetworks();
-                CalculateAllNetworkErrors(currentDataSet);
+                CalculateAllNetworkErrors(currentExpectedResults);
             }
+            SortByFitness();
         }
     }
 }

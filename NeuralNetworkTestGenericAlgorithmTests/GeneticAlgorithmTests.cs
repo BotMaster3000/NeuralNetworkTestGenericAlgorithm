@@ -111,7 +111,7 @@ namespace NeuralNetworkTestGenericAlgorithm.Tests
         {
             int iterations = 100;
             SetupNetworks();
-            algorithm.PerformAutoBreed(iterations, binaryNumberStrings);
+            algorithm.PerformAutoBreed(iterations, binaryNumberStrings, binaryNumberStrings);
         }
 
         [TestMethod]

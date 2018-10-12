@@ -225,11 +225,11 @@ namespace NeuralNetworkTestGenericAlgorithm
 
         public void PropagateForward()
         {
-            CalculateNodes(inputLayer, hiddenLayer);
-            CalculateNodes(hiddenLayer, outputLayer);
+            CalculateNodes(inputLayer, hiddenLayer, true);
+            CalculateNodes(hiddenLayer, outputLayer, false);
         }
 
-        private void CalculateNodes(Node[] layer, Node[] nextLayer)
+        private void CalculateNodes(Node[] layer, Node[] nextLayer, bool useLogistics)
         {
             foreach (Node currentLayerNode in layer)
             {
@@ -243,7 +243,14 @@ namespace NeuralNetworkTestGenericAlgorithm
                 {
                     totalValue += currentLayerNode.Results[nextNodePos];
                 }
-                nextLayer[nextNodePos].InputValue = 1 / (1 + totalValue);
+                if (useLogistics)
+                {
+                    nextLayer[nextNodePos].InputValue = 1 / (1 + totalValue);
+                }
+                else
+                {
+                    nextLayer[nextNodePos].InputValue = totalValue;
+                }
             }
         }
 
